@@ -1,0 +1,23 @@
+# Core LangChain Framework
+langchain
+langchain-text-splitters
+
+langchain_community
+langchain-chroma
+langchain-classic
+
+# Vector DB
+faiss-cpu
+
+# Google and Groq Integration
+langchain-google-genai
+langchain-groq
+
+# UI
+streamlit
+
+# Dependencies/Best Practices
+requests
+pydantic      
+python-dotenv
+pypdf

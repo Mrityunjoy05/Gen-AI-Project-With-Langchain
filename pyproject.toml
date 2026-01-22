@@ -1,0 +1,25 @@
+[project]
+name = "gen-ai-project-with-langchain"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "faiss-cpu>=1.13.2",
+    "langchain>=1.2.6",
+    "langchain-chroma>=1.1.0",
+    "langchain-classic>=1.0.1",
+    "langchain-community>=0.4.1",
+    "langchain-google-genai>=4.2.0",
+    "langchain-groq>=1.1.1",
+    "langchain-huggingface>=1.2.0",
+    "langchain-tavily>=0.2.17",
+    "langchain-text-splitters>=1.1.0",
+    "pydantic>=2.12.5",
+    "pypdf>=6.6.0",
+    "python-dotenv>=1.2.1",
+    "requests>=2.32.5",
+    "sentence-transformers>=5.2.0",
+    "streamlit>=1.53.0",
+    "torch>=2.9.1",
+]
