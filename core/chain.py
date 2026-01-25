@@ -247,3 +247,45 @@ class RAGchain:
         # Step 3: Stream response
         for chunk in self.generate_stream(question, context):
             yield chunk
+
+    
+    def get_document_summaries(self, query: str, k: int = 3) -> dict:
+        """
+        Get summaries of top-N relevant documents.
+        
+        Args:
+            query: User's question
+            k: Number of documents to summarize
+            
+        Returns:
+            Dictionary with document summaries
+        """
+        if not self.vector_store.is_initialized:
+            return {"summaries": [], "message": "No documents available"}
+        
+        # Retrieve top documents
+        documents = self.vector_store.search(query, k=k)
+        
+        summaries = []
+        
+        for i, doc in enumerate(documents, 1):
+            # Generate summary for each document
+            summary_prompt = ChatPromptTemplate.from_template(
+                "Summarize this document chunk in 2-3 sentences:\n\n{content}\n\nSummary:"
+            )
+            
+            chain = summary_prompt | self._llm | self._output_parser
+            summary = chain.invoke({"content": doc.page_content})
+            
+            summaries.append({
+                "rank": i,
+                "source": doc.metadata.get("source", "Unknown"),
+                "summary": summary,
+                "relevance_score": "High" if i <= 2 else "Medium"
+            })
+        
+        return {
+            "query": query,
+            "summaries": summaries,
+            "total_documents": len(summaries)
+        }

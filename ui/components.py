@@ -240,3 +240,75 @@ def display_mode_switcher():
         st.session_state.chat_mode = switch_to
         st.session_state.messages = []
         st.rerun()
+
+
+def display_enhanced_document_manager():
+    """Display enhanced document management sidebar."""
+    with st.sidebar:
+        st.markdown("""
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                        padding: 1.5rem; 
+                        border-radius: 10px; 
+                        margin-bottom: 1rem;">
+                <h2 style="color: white; text-align: center; margin: 0;">
+                    📚 Document Manager
+                </h2>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        # Document stats
+        st.markdown("### 📊 Knowledge Base Stats")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.metric(
+                label="Documents",
+                value=len(st.session_state.uploaded_files),
+                delta=None
+            )
+        
+        with col2:
+            chunks_count = st.session_state.get('total_chunks', 0)
+            st.metric(
+                label="Chunks",
+                value=chunks_count,
+                delta=None
+            )
+        
+        st.divider()
+        
+        # Indexed files
+        st.markdown("### 📁 Indexed Documents")
+        if st.session_state.uploaded_files:
+            for i, file in enumerate(st.session_state.uploaded_files, 1):
+                st.markdown(f"""
+                    <div style="background-color: #e8f5e9; 
+                                padding: 0.8rem; 
+                                border-radius: 8px; 
+                                margin: 0.5rem 0;
+                                border-left: 4px solid #4caf50;">
+                        <strong>{i}. {file}</strong><br>
+                        <small>✅ Indexed & Ready</small>
+                    </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.info("📭 No documents indexed yet")
+        
+        st.divider()
+        
+        # Actions
+        st.markdown("### ⚙️ Actions")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("🗑️ Clear All", use_container_width=True, type="secondary"):
+                st.session_state.uploaded_files = []
+                st.session_state.vector_store_initialized = False
+                st.session_state.messages = []
+                st.success("Cleared!")
+                st.rerun()
+        
+        with col2:
+            if st.button("🔄 Refresh", use_container_width=True):
+                st.rerun()

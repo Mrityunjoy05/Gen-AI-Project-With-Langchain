@@ -361,3 +361,35 @@ class ChatInterface:
         chain = prompt | llm
         for chunk in chain.stream({"question": query}):
             yield chunk.content
+
+
+    def get_general_response(self, query: str ) -> Generator[str, None, None]:
+        """
+        Get response for general conversation (no RAG).
+        
+        Args:
+            query: User's question
+            
+        Yields:
+            Response chunks
+        """
+        from core.agent import AgentManager
+        from tools.tools_for_chat import get_all_tools
+        import secrets
+
+
+        if "thread_id" not in st.session_state:
+            # Create new thread_id and store it
+            st.session_state.thread_id = secrets.token_urlsafe(16)
+
+        agentmanager = AgentManager()
+        tools = get_all_tools()
+        
+        agentmanager.agent_initialization(tools= tools)
+
+
+
+        response = agentmanager.get_response_stream(query , thread_id=st.session_state.thread_id)
+            
+
+        return response

@@ -11,6 +11,7 @@ class Settings:
     GROQ_API_KEY:str =os.getenv('GROQ_API_KEY')
     TAVILY_API_KEY:str =os.getenv('TAVILY_API_KEY')
     GOOGLE_API_KEY:str =os.getenv('GOOGLE_API_KEY')
+    OPENWEATHER_API_KEY:str =os.getenv('OPENWEATHER_API_KEY')
     LLM_MODEL:str =os.getenv('LLM_MODEL')
     EMBEDDING_MODEL:str =os.getenv('EMBEDDING_MODEL')
     CHUNK_SIZE:int = int(os.getenv('CHUNK_SIZE'))
@@ -28,5 +29,6 @@ class Settings:
             raise ValueError("TAVILY API key is not set. Please add it to your .env file")
 
         return True
+
 
 settings = Settings()
