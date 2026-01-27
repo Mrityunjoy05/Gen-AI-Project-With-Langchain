@@ -30,6 +30,7 @@ class VectorStoreManager:
         self.index_path : str = settings.FAISS_INDEX_PATH
 
     
+    
     @property
     def vector_store(self) -> Optional[FAISS]:
         """

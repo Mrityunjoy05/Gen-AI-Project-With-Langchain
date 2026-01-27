@@ -119,7 +119,7 @@ class AgentManager:
             raise ValueError("Agent is not initialized. Call agent_initialization() first.")
         
         config={"configurable": {"thread_id": thread_id}}
-
+    
         response = self._agent.stream({"messages": [HumanMessage(content=query)]},config=config , stream_mode='messages')
 
         for chunk in response:

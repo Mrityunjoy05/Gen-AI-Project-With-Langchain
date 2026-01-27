@@ -1,23 +1,42 @@
-# Core LangChain Framework
-langchain
-langchain-text-splitters
+# Core Framework
+streamlit>=1.53.0
 
-langchain_community
-langchain-chroma
-langchain-classic
+# LangChain
+langchain>=1.2.6
+langchain-chroma>=1.1.0
+langchain-classic>=1.0.1
+langchain-community>=0.4.1
+langchain-core>=0.1.10
+langchain-text-splitters>=1.1.0
 
-# Vector DB
-faiss-cpu
+# LLM Providers
+langchain-groq>=1.1.1
+langchain-google-genai>=4.2.0
 
-# Google and Groq Integration
-langchain-google-genai
-langchain-groq
+# Embeddings
+langchain-huggingface>=1.2.0
+sentence-transformers>=5.2.0
 
-# UI
-streamlit
+# Vector Database
+faiss-cpu>=1.13.2
 
-# Dependencies/Best Practices
-requests
-pydantic      
-python-dotenv
-pypdf
+# Web Search
+langchain-tavily>=0.2.17
+
+
+# Agent Framework
+langgraph>=0.2.0
+langgraph-checkpoint-sqlite>=3.0.3
+
+# Document Processing
+pypdf>=6.6.0
+
+
+# Utilities
+pydantic>=2.12.5
+python-dotenv>=1.2.1
+requests>=2.32.5
+
+# ML Framework
+torch>=2.9.1
+transformers>=4.35.0

@@ -39,7 +39,7 @@ def main():
     # Display sidebar (includes mode switcher)
     display_sidebar_info()
     
-    # ✅ Route to different UIs based on mode
+
     if st.session_state.chat_mode == 'rag':
         display_rag_mode(chat)
     else:
@@ -113,7 +113,7 @@ def display_rag_mode(chat):
                 # Stream response
                 response = st.write_stream(response_gen)
                 
-                # ✅ Evidence Tabs
+            
                 tab1, tab2, tab3 = st.tabs(["📄 Answer", "📚 Document Evidence", "🌐 Web Evidence"])
                 
                 with tab1:
@@ -179,7 +179,6 @@ def display_general_mode(chat):
         
         with st.chat_message("assistant"):
             try:
-                # ✅ Call your general chat method
                 response = st.write_stream(chat.get_general_response(prompt))
                 add_message("assistant", response)
                 

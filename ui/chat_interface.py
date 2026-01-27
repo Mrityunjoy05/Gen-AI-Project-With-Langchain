@@ -206,13 +206,7 @@ class ChatInterface:
                 temperature=settings.LLM_TEMPERATURE,
                 api_key=settings.GROQ_API_KEY
             )
-            
-            # prompt = ChatPromptTemplate.from_template(
-            #     "Based on the following search results, answer the question concisely and accurately.\n\n"
-            #     "Search Results:\n{context}\n\n"
-            #     "Question: {question}\n\n"
-            #     "Answer: "
-            # )
+        
             
             prompt = ChatPromptTemplate.from_template(
                     """
@@ -275,32 +269,7 @@ class ChatInterface:
                 sources.append("Web Search Results")
         
         return sources
-    
-    # def get_sources_mmr(self, query: str, use_web_search: bool = False) -> list:
-    #     """
-    #     Get source documents for a query.
-        
-    #     Args:
-    #         query: User's question
-    #         use_web_search: Whether web search was used
-            
-    #     Returns:
-    #         List of source document names
-    #     """
-    #     sources = []
-        
-    #     # Get semantic search sources
-    #     if self.vector_store.is_initialized:
-    #         docs = self.rag_chain.retrieve_mmr(query)
-    #         sources.extend(list(set(doc.metadata.get("source", "Unknown") for doc in docs)))
-        
-    #     # Get web search sources
-    #     if use_web_search:
-    #         web_results = self.tavily_search.search(query)
-    #         if web_results:
-    #             sources.append("Web Search Results")
-        
-    #     return sources
+
     
     def get_sources_mmr(self, query: str, use_web_search: bool = False) -> list:
         """

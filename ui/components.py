@@ -3,18 +3,7 @@ import streamlit as st
 from typing import List
 import tempfile
 
-
-def init_session_state():
-
-    if 'messages' not in st.session_state :
-        st.session_state.messages = []
-        
-    if 'vector_store_initialized' not in st.session_state :
-        st.session_state.vector_store_initialized = False
-
-    if 'uploaded_files' not in st.session_state :
-        st.session_state.uploaded_files = []
-        
+    
 def init_session_state():
 
     if 'messages' not in st.session_state :
@@ -26,7 +15,6 @@ def init_session_state():
     if 'uploaded_files' not in st.session_state :
         st.session_state.uploaded_files = []
     
-    # ✅ Add chat mode
     if 'chat_mode' not in st.session_state:
         st.session_state.chat_mode = 'rag'  # 'rag' or 'general'
 
@@ -74,40 +62,6 @@ def save_uploaded_file(uploaded_file):
     return file_path
 
 
-def display_sidebar_info():
-    """Display information in the sidebar."""
-    with st.sidebar:
-        st.header("📖 About")
-        st.markdown("""
-        This is a **AI Advocte RAG Chatbot** that can:
-        - 📄 Answer questions from your documents
-        - 🔍 Search the web using Tavily
-        - 💬 Have natural conversations
-        
-        **How to use:**
-        1. Upload PDF or TXT files
-        2. Wait for processing
-        3. Ask questions!
-        """)
-        
-        st.divider()
-        
-        # Show upload status
-        st.header("📁 Uploaded Files")
-        if st.session_state.uploaded_files:
-            for file in st.session_state.uploaded_files:
-                st.write(f"✅ {file}")
-        else:
-            st.write("No files uploaded yet")
-        
-        st.divider()
-        
-        # Clear chat button
-        if st.button("🗑️ Clear Chat History"):
-            clear_chat_history()
-            st.rerun()
-
-# In ui/components.py:
 def display_sidebar_info():
     """Display information in the sidebar."""
     with st.sidebar:
@@ -241,74 +195,3 @@ def display_mode_switcher():
         st.session_state.messages = []
         st.rerun()
 
-
-def display_enhanced_document_manager():
-    """Display enhanced document management sidebar."""
-    with st.sidebar:
-        st.markdown("""
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                        padding: 1.5rem; 
-                        border-radius: 10px; 
-                        margin-bottom: 1rem;">
-                <h2 style="color: white; text-align: center; margin: 0;">
-                    📚 Document Manager
-                </h2>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        # Document stats
-        st.markdown("### 📊 Knowledge Base Stats")
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.metric(
-                label="Documents",
-                value=len(st.session_state.uploaded_files),
-                delta=None
-            )
-        
-        with col2:
-            chunks_count = st.session_state.get('total_chunks', 0)
-            st.metric(
-                label="Chunks",
-                value=chunks_count,
-                delta=None
-            )
-        
-        st.divider()
-        
-        # Indexed files
-        st.markdown("### 📁 Indexed Documents")
-        if st.session_state.uploaded_files:
-            for i, file in enumerate(st.session_state.uploaded_files, 1):
-                st.markdown(f"""
-                    <div style="background-color: #e8f5e9; 
-                                padding: 0.8rem; 
-                                border-radius: 8px; 
-                                margin: 0.5rem 0;
-                                border-left: 4px solid #4caf50;">
-                        <strong>{i}. {file}</strong><br>
-                        <small>✅ Indexed & Ready</small>
-                    </div>
-                """, unsafe_allow_html=True)
-        else:
-            st.info("📭 No documents indexed yet")
-        
-        st.divider()
-        
-        # Actions
-        st.markdown("### ⚙️ Actions")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            if st.button("🗑️ Clear All", use_container_width=True, type="secondary"):
-                st.session_state.uploaded_files = []
-                st.session_state.vector_store_initialized = False
-                st.session_state.messages = []
-                st.success("Cleared!")
-                st.rerun()
-        
-        with col2:
-            if st.button("🔄 Refresh", use_container_width=True):
-                st.rerun()
