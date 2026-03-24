@@ -163,7 +163,7 @@ graph TB
 
 ### Step 1: Clone Repository
 ```bash
-git clone https://github.com/yourusername/ai-advocate-rag.git
+git clone https://github.com/yourusername/Gen-AI-Project-With-Langchain.git
 cd ai-advocate-rag
 ```
 
